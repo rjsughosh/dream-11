@@ -662,4 +662,16 @@ label {
 .each-section-left-header {
   margin: 0.5rem 0;
 }
+
+@media only screen and (max-width: 760px) {
+  .content {
+    flex-direction: column;
+  }
+  .players-lineup {
+    width: 100%;
+  }
+  .players-list {
+    width: 100%;
+  }
+}
 </style>
