@@ -77,14 +77,15 @@
                 </b-form-group>
                 <b-form-group class="each-form-el">
                   <b-button class="form-btn add-btn" type="submit" variant="primary">Add</b-button>
-                  <b-button class="form-btn" type="reset" variant="danger">Reset</b-button>
+                  <!-- <button class="clear-btn" type="reset">×</button> -->
+                  <!-- <b-button class="form-btn" type="reset" variant="danger">Reset</b-button> -->
                 </b-form-group>
               </div>
             </b-form>
           </div>
         </div>
         <div class="players-list-pl each-section-left">
-          <div class="each-section-left-header">Forwards</div>
+          <div class="each-section-left-header">Forwards [{{fwds.length}}/{{formation[2]}}]</div>
 
           <div class="position-section">
             <div
@@ -101,7 +102,7 @@
           </div>
         </div>
         <div class="players-list-pl each-section-left">
-          <div class="each-section-left-header">Midfielders</div>
+          <div class="each-section-left-header">Midfielders [{{mids.length}}/{{formation[1]}}]</div>
 
           <div class="position-section">
             <div
@@ -118,7 +119,7 @@
           </div>
         </div>
         <div class="players-list-pl each-section-left">
-          <div class="each-section-left-header">Defenders</div>
+          <div class="each-section-left-header">Defenders [{{defs.length}}/{{formation[0]}}]</div>
 
           <div class="position-section">
             <div
@@ -286,52 +287,26 @@ export default {
 
     onSubmit(evt) {
       evt.preventDefault();
-      switch (this.form.position) {
-        case "forwards": {
-          this.forwards = [
-            {
-              name: this.form.name,
-              number: this.form.number,
-              selected: false,
-              position: "forward"
-            },
-            ...this.forwards
-          ];
-          break;
-        }
-        case "midfielders": {
-          this.midfielders.unshift({
-            name: this.form.name,
-            number: this.form.number,
-            selected: false,
-            position: "midfielders"
-          });
-          break;
-        }
-        case "defenders": {
-          this.defenders.unshift({
-            name: this.form.name,
-            number: this.form.number,
-            selected: false,
-            position: "defenders"
-          });
-          break;
-        }
-        case "goalkeepers": {
-          this.goalkeepers.unshift({
-            name: this.form.name,
-            number: this.form.number,
-            selected: false,
-            position: "goalkeepers"
-          });
-          break;
-        }
+
+      //check if kit number is unique
+      let keys = Object.keys(this.team);
+      let allNumbers = [];
+      for (let key of keys) {
+        let nums = this.team[key].map(x => x.number);
+        allNumbers = [...allNumbers, ...nums];
       }
-      console.log("this.forwards", this.forwards);
-      console.log("this.midfielders", this.midfielders);
-      console.log("this.defenders", this.defenders);
-      console.log("this.goalkeepers", this.goalkeepers);
-      // alert(JSON.stringify(this.form));
+      debugger;
+      let bool = allNumbers.indexOf(Number.parseInt(this.form.number));
+      if (bool !== -1) {
+        console.log("cant add");
+        return;
+      }
+      this.team[this.form.position].unshift({
+        name: this.form.name,
+        number: this.form.number,
+        selected: false,
+        position: "forward"
+      });
     },
 
     onReset(evt) {
@@ -376,7 +351,6 @@ export default {
     },
 
     changeTeam() {
-      debugger;
       this.team = {};
       this.formation = [];
       if (this.teamSelected == "barca") {
@@ -510,16 +484,24 @@ label {
   align-items: center;
   font-size: 1rem;
   font-weight: normal;
+  font-weight: bold;
+
   /* display: inline; */
   /* min-width: fit-content; */
+}
+
+.each-player:hover {
+  border: 2px solid #2e519f;
+  /* font-weight: bold; */
 }
 
 .each-player > div {
   cursor: pointer;
 }
 .is-selected {
-  border: 2px solid #2e519f;
-  font-weight: bold;
+  background: #2e519f;
+  /* font-weight: bold; */
+  color: #fff;
 }
 .position-section {
   display: flex;
@@ -549,6 +531,26 @@ label {
 .form-btn {
   margin: 0.5rem 0rem 0.5rem 0.85rem;
   width: 4rem;
+}
+
+.clear-btn {
+  margin: 0.5rem 0rem 0.5rem 0.85rem;
+  /* padding: 0.5rem; */
+  color: #dc3545;
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-radius: 50%; */
+}
+.clear-btn:focus {
+  outline: none;
+}
+.clear-btn:hover {
+  transform: scale(1.1);
+  transition: 0.2s scale;
 }
 
 .kit-number {
