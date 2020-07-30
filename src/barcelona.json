@@ -1,0 +1,147 @@
+{
+    "team": {
+        "forwards": [
+            {
+                "number": 10,
+                "selected": true,
+                "name": "Lionel Messi"
+            },
+            {
+                "number": 9,
+                "selected": true,
+                "name": "Luis Suarez"
+            },
+            {
+                "number": 17,
+                "selected": false,
+                "name": "Phillip Coutinho"
+            },
+            {
+                "number": 7,
+                "selected": false,
+                "name": "Antoine Griezman"
+            },
+            {
+                "number": 11,
+                "selected": false,
+                "name": "Ousmane Dembele"
+            },
+            {
+                "number": 14,
+                "selected": true,
+                "name": "Ansu Fati"
+            },
+            {
+                "number": 28,
+                "selected": false,
+                "name": "Pedri Lopez"
+            },
+            {
+                "number": 77,
+                "selected": false,
+                "name": "Francisco Trincao"
+            }
+        ],
+        "midfielders": [
+            {
+                "number": 5,
+                "selected": true,
+                "name": "Sergio Busquets"
+            },
+            {
+                "number": 4,
+                "selected": false,
+                "name": "Ivan Rakitic"
+            },
+            {
+                "number": 21,
+                "selected": false,
+                "name": "Miralem Pjanic"
+            },
+            {
+                "number": 6,
+                "selected": true,
+                "name": "Frankie de Jong"
+            },
+            {
+                "number": 22,
+                "selected": false,
+                "name": "Arturo Vidal"
+            },
+            {
+                "number": 8,
+                "selected": true,
+                "name": "Riqui Puig"
+            },
+            {
+                "number": 23,
+                "selected": false,
+                "name": "Matheus Fernandes"
+            },
+            {
+                "number": 19,
+                "selected": false,
+                "name": "Carles Alenya"
+            }
+        ],
+        "defenders": [
+            {
+                "number": 18,
+                "selected": true,
+                "name": "Jordi Alba"
+            },
+            {
+                "number": 20,
+                "selected": true,
+                "name": "Sergi Roberto"
+            },
+            {
+                "number": 2,
+                "selected": false,
+                "name": "Nelson Semedo"
+            },
+            {
+                "number": 3,
+                "selected": true,
+                "name": "Gerard Pique"
+            },
+            {
+                "number": 15,
+                "selected": true,
+                "name": "Clement Lenglet"
+            },
+            {
+                "number": 23,
+                "selected": false,
+                "name": "Samuel Umtiti"
+            },
+            {
+                "number": 24,
+                "selected": false,
+                "name": "Junior Firpo"
+            },
+            {
+                "number": 33,
+                "selected": false,
+                "name": "Ronald Araujo"
+            }
+        ],
+        "goalkeepers": [
+            {
+                "number": 1,
+                "selected": true,
+                "name": "Marc-Andre ter Stegen"
+            },
+            {
+                "number": 13,
+                "selected": false,
+                "name": "Neto"
+            }
+        ]
+    },
+    "formation": [
+        4,
+        3,
+        3
+    ]
+}

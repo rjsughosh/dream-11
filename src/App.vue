@@ -4,6 +4,23 @@
     <div class="content">
       <div class="players-list">
         <div class="formation-section each-section-left">
+          <div class="each-section-left-header">Choose Team</div>
+
+          <b-form-group
+            class="each-form-el add-player-form"
+            id="input-group-5"
+            label="Team:"
+            label-for="input-5"
+          >
+            <b-form-select
+              id="input-5"
+              v-model="teamSelected"
+              :options="teamOptions"
+              v-on:change="changeTeam"
+            ></b-form-select>
+          </b-form-group>
+        </div>
+        <div class="formation-section each-section-left">
           <div class="each-section-left-header">Choose formation</div>
 
           <b-form-group
@@ -73,15 +90,13 @@
             <div
               v-bind:class="{'is-selected':player.selected}"
               v-bind:key="player.number"
-              v-for="(player, i) in forwards"
+              v-for="(player) in team.forwards"
               class="each-player"
             >
-              <div v-on:click="togglePlayer(i,'forwards')">{{player.number}} {{player.name}}</div>
-              <b-button
-                v-on:click="removePlayer(i,'forwards')"
-                class="close-button"
-                variant="danger"
-              >×</b-button>
+              <div
+                v-on:click="togglePlayer(player.number,'forwards')"
+              >{{player.number}} {{player.name}}</div>
+              <button v-on:click="removePlayer(player.number,'forwards')" class="close-button">×</button>
             </div>
           </div>
         </div>
@@ -92,15 +107,13 @@
             <div
               v-bind:class="{'is-selected':player.selected}"
               v-bind:key="player.number"
-              v-for="(player, i) in midfielders"
+              v-for="(player) in team.midfielders"
               class="each-player"
             >
-              <div v-on:click="togglePlayer(i,'midfielders')">{{player.number}} {{player.name}}</div>
-              <b-button
-                v-on:click="removePlayer(i,'midfielders')"
-                class="close-button"
-                variant="danger"
-              >×</b-button>
+              <div
+                v-on:click="togglePlayer(player.number,'midfielders')"
+              >{{player.number}} {{player.name}}</div>
+              <button v-on:click="removePlayer(player.number,'midfielders')" class="close-button">×</button>
             </div>
           </div>
         </div>
@@ -111,15 +124,17 @@
             <div
               v-bind:class="{'is-selected':player.selected}"
               v-bind:key="player.number"
-              v-for="(player, i) in defenders"
+              v-for="(player) in team.defenders"
               class="each-player"
             >
-              <div v-on:click="togglePlayer(i,'defenders')">{{player.number}} {{player.name}}</div>
-              <b-button
-                v-on:click="removePlayer(i,'defenders')"
+              <div
+                v-on:click="togglePlayer(player.number,'defenders')"
+              >{{player.number}} {{player.name}}</div>
+              <button
+                v-on:click="removePlayer(player.number,'defenders')"
                 class="close-button"
                 variant="danger"
-              >×</b-button>
+              >×</button>
             </div>
           </div>
         </div>
@@ -129,15 +144,17 @@
             <div
               v-bind:class="{'is-selected':player.selected}"
               v-bind:key="player.number"
-              v-for="(player, i) in goalkeepers"
+              v-for="(player) in team.goalkeepers"
               class="each-player"
             >
-              <div v-on:click="togglePlayer(i,'goalkeepers')">{{player.number}} {{player.name}}</div>
-              <b-button
-                v-on:click="removePlayer(i,'goalkeepers')"
+              <div
+                v-on:click="togglePlayer(player.number,'goalkeepers')"
+              >{{player.number}} {{player.name}}</div>
+              <button
+                v-on:click="removePlayer(player.number,'goalkeepers')"
                 class="close-button"
                 variant="danger"
-              >×</b-button>
+              >×</button>
             </div>
           </div>
         </div>
@@ -170,121 +187,15 @@
 
 <script>
 import Header from "./components/Header";
+import barca from "./barcelona.json";
+import realMadrid from "./real madrid.json";
+// import axios from "axios";
 export default {
   name: "App",
   components: { Header },
   data() {
     return {
-      forwards: [
-        {
-          name: "Lionel Messi",
-          number: 10,
-          selected: true,
-          position: "forward"
-        },
-        {
-          name: "Luis Suarez",
-          number: 9,
-          selected: true,
-          position: "forward"
-        },
-        {
-          name: "Antoine Griezman",
-          number: 7,
-          selected: false,
-          position: "forward"
-        },
-        {
-          name: "Ousmane Dembele",
-          number: 11,
-          selected: true,
-          position: "forward"
-        },
-        {
-          name: "Martin Brathwaite",
-          number: 32,
-          selected: false,
-          position: "forward"
-        },
-        {
-          name: "Francisco Trincao",
-          number: 35,
-          selected: false,
-          position: "forward"
-        }
-      ],
-
-      midfielders: [
-        {
-          name: "Frankie De Jong",
-          number: 8,
-          selected: true,
-          position: "midfield"
-        },
-        {
-          name: "Sergio Busquets",
-          number: 6,
-          selected: true,
-          position: "midfield"
-        },
-        {
-          name: "Riqui Puig",
-          number: 7,
-          selected: true,
-          position: "midfield"
-        },
-        {
-          name: "Arturo Vidal",
-          number: 22,
-          selected: false,
-          position: "midfield"
-        },
-        {
-          name: "Pedri Lopez",
-          number: 16,
-          selected: false,
-          position: "midfield"
-        }
-      ],
-
-      defenders: [
-        {
-          name: "Sergi Roberto",
-          number: 2,
-          selected: true,
-          position: "defender"
-        },
-        {
-          name: "Gerard Pique",
-          number: 3,
-          selected: true,
-          position: "defender"
-        },
-        {
-          name: "Clement Lenglet",
-          number: 5,
-          selected: true,
-          position: "defender"
-        },
-        {
-          name: "Jordi Alba",
-          number: 18,
-          selected: true,
-          position: "defender"
-        },
-        {
-          name: "Ronald Araujo",
-          number: 31,
-          selected: false,
-          position: "defender"
-        }
-      ],
-
-      goalkeepers: [
-        { name: "Ter Stegen", number: 1, selected: true, position: "gk" },
-        { name: "Neto", number: 12, selected: false, position: "gk" }
-      ],
-
+      team: {},
       positionLimit: {
         forwards: 3,
         defenders: 4,
@@ -314,103 +225,65 @@ export default {
         { value: [5, 4, 1], text: "5-4-1" },
         { value: [5, 3, 2], text: "5-3-2" }
       ],
-      formation: []
+      formation: [],
+      teamSelected: "",
+      teamOptions: [
+        { value: "barca", text: "FC Barcelona" },
+        { value: "realMadrid", text: "Real Madrid" }
+      ]
     };
   },
   computed: {
     fwds: function() {
-      return this.forwards.filter(i => i.selected === true);
+      return this.team.forwards.filter(i => i.selected === true);
     },
     mids: function() {
-      return this.midfielders.filter(i => i.selected === true);
+      return this.team.midfielders.filter(i => i.selected === true);
     },
     defs: function() {
-      return this.defenders.filter(i => i.selected === true);
+      return this.team.defenders.filter(i => i.selected === true);
     },
     gks: function() {
-      return this.goalkeepers.filter(i => i.selected === true);
+      return this.team.goalkeepers.filter(i => i.selected === true);
     }
   },
   methods: {
-    togglePlayer(index, position) {
-      switch (position) {
-        case "forwards": {
-          if (this.forwards[index].selected) {
-            this.forwards[index].selected = false;
-          } else {
-            let temp = this.forwards.filter(x => x.selected);
-            if (temp.length < this.positionLimit[position]) {
-              this.forwards[index].selected = true;
-            } else {
-              console.log("limit reached");
-            }
-          }
-          break;
-        }
-        case "midfielders": {
-          if (this.midfielders[index].selected) {
-            this.midfielders[index].selected = false;
-          } else {
-            let temp = this.midfielders.filter(x => x.selected);
-            if (temp.length < this.positionLimit[position]) {
-              this.midfielders[index].selected = true;
-            } else {
-              console.log("limit reached");
-            }
-          }
-          break;
-        }
-        case "defenders": {
-          if (this.defenders[index].selected) {
-            this.defenders[index].selected = false;
-          } else {
-            let temp = this.defenders.filter(x => x.selected);
-            if (temp.length < this.positionLimit[position]) {
-              this.defenders[index].selected = true;
-            } else {
-              console.log("limit reached");
-            }
-          }
-          break;
-        }
-        case "goalkeepers": {
-          if (this.goalkeepers[index].selected) {
-            this.goalkeepers[index].selected = false;
-          } else {
-            let temp = this.goalkeepers.filter(x => x.selected);
-            if (temp.length < this.positionLimit[position]) {
-              this.goalkeepers[index].selected = true;
-            } else {
-              console.log("limit reached");
-            }
-          }
-          break;
+    togglePlayer(number, position) {
+      // this.team[position].filter(p => p.number === number)[0].selected =
+      let posIndex;
+      if (position == "forwards") posIndex = 2;
+      if (position == "midfielders") posIndex = 1;
+      if (position == "defenders") posIndex = 0;
+      if (position == "goalkeepers") {
+        this.team.goalkeepers.map(x => {
+          x.selected = !x.selected;
+        });
+        return;
+      }
+      // debugger;
+      if (this.team[position].filter(p => p.number === number)[0].selected) {
+        this.team[position].filter(
+          p => p.number === number
+        )[0].selected = false;
+      } else {
+        let temp = this.team[position].filter(x => x.selected);
+        if (temp.length < this.formation[posIndex]) {
+          this.team[position].filter(
+            p => p.number === number
+          )[0].selected = true;
+        } else {
+          console.log("limit reached");
         }
       }
     },
-    removePlayer(index, position) {
-      switch (position) {
-        case "forwards": {
-          this.forwards.splice(index, 1);
-          break;
-        }
-        case "midfielders": {
-          this.midfielders.splice(index, 1);
 
-          break;
-        }
-        case "defenders": {
-          this.defenders.splice(index, 1);
-
-          break;
-        }
-        case "goalkeepers": {
-          this.goalkeepers.splice(index, 1);
-
-          break;
-        }
-      }
+    removePlayer(number, position) {
+      let index = this.team[position].indexOf(
+        this.team[position].filter(p => p.number === number)[0]
+      );
+      this.team[position].splice(index, 1);
     },
+
     onSubmit(evt) {
       evt.preventDefault();
       switch (this.form.position) {
@@ -460,6 +333,7 @@ export default {
       console.log("this.goalkeepers", this.goalkeepers);
       // alert(JSON.stringify(this.form));
     },
+
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
@@ -467,35 +341,60 @@ export default {
       this.form.number = "";
       this.form.position = "";
     },
+
     changeFormation() {
       this.positionLimit.defenders = this.formation[0];
       this.positionLimit.midfielders = this.formation[1];
       this.positionLimit.forwards = this.formation[2];
 
-      this.forwards.map(x => (x.selected = false));
-      this.forwards.map(x => {
-        let temp = this.forwards.filter(x => x.selected);
-        if (temp.length < this.positionLimit.forwards) {
+      console.log("positionLimit", this.positionLimit);
+
+      this.team.forwards.map(x => (x.selected = false));
+      debugger;
+      this.team.forwards.map(x => {
+        let temp = this.team.forwards.filter(x => x.selected);
+        if (temp.length < this.formation[2]) {
           x.selected = true;
         }
       });
 
-      this.midfielders.map(x => (x.selected = false));
-      this.midfielders.map(x => {
-        let temp = this.midfielders.filter(x => x.selected);
-        if (temp.length < this.positionLimit.midfielders) {
+      this.team.midfielders.map(x => (x.selected = false));
+      this.team.midfielders.map(x => {
+        let temp = this.team.midfielders.filter(x => x.selected);
+        if (temp.length < this.formation[1]) {
           x.selected = true;
         }
       });
 
-      this.defenders.map(x => (x.selected = false));
-      this.defenders.map(x => {
-        let temp = this.defenders.filter(x => x.selected);
-        if (temp.length < this.positionLimit.defenders) {
+      this.team.defenders.map(x => (x.selected = false));
+      this.team.defenders.map(x => {
+        let temp = this.team.defenders.filter(x => x.selected);
+        if (temp.length < this.formation[0]) {
           x.selected = true;
         }
       });
+    },
+
+    changeTeam() {
+      debugger;
+      this.team = {};
+      this.formation = [];
+      if (this.teamSelected == "barca") {
+        this.team = { ...barca.team };
+        this.formation = [...barca.formation];
+      }
+      if (this.teamSelected == "realMadrid") {
+        this.team = { ...realMadrid.team };
+        this.formation = [...realMadrid.formation];
+      }
+
+      // console.log("this.team", this.team);
+      // this.changeFormation();
     }
+  },
+  created: function() {
+    this.team = barca.team;
+    this.formation = barca.formation;
   }
 };
 </script>
@@ -587,8 +486,18 @@ label {
 }
 
 .close-button {
-  border-radius: 50% !important;
+  border-radius: 50%;
   margin-left: 1rem;
+  background: #dc3545;
+  font-size: 1.8rem;
+  padding: 0px;
+  height: 2rem;
+  width: 2rem;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .each-player {
@@ -596,10 +505,10 @@ label {
   justify-content: space-between;
   border: 1px solid #999;
   border-radius: 30px;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 0.5rem 0.75rem 0.5rem 0;
+  padding: 0.4rem;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: normal;
   /* display: inline; */
   /* min-width: fit-content; */
@@ -634,11 +543,11 @@ label {
 }
 .add-player-form {
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: normal;
 }
 .form-btn {
-  margin: 0.5rem;
+  margin: 0.5rem 0rem 0.5rem 0.85rem;
   width: 4rem;
 }
 

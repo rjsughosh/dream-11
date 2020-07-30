@@ -1,0 +1,142 @@
+{
+    "team": {
+        "forwards": [
+            {
+                "number": 9,
+                "selected": true,
+                "name": "Kaim Benzema"
+            },
+            {
+                "number": 17,
+                "selected": false,
+                "name": "Lucas Vasquez"
+            },
+            {
+                "number": 7,
+                "selected": true,
+                "name": "Eden Hazard"
+            },
+            {
+                "number": 11,
+                "selected": false,
+                "name": "Gareth Bale"
+            },
+            {
+                "number": 18,
+                "selected": false,
+                "name": "Jovic"
+            },
+            {
+                "number": 20,
+                "selected": false,
+                "name": "Asensio"
+            },
+            {
+                "number": 21,
+                "selected": false,
+                "name": "Brahim"
+            },
+            {
+                "number": 24,
+                "selected": false,
+                "name": "Mariano"
+            },
+            {
+                "number": 25,
+                "selected": false,
+                "name": "Vinicius"
+            },
+            {
+                "number": 27,
+                "selected": false,
+                "name": "Rodrygo"
+            }
+        ],
+        "midfielders": [
+            {
+                "number": 16,
+                "selected": false,
+                "name": "James Rodriguez"
+            },
+            {
+                "number": 22,
+                "selected": false,
+                "name": "Isco"
+            },
+            {
+                "number": 10,
+                "selected": true,
+                "name": "Luka Modrid"
+            },
+            {
+                "number": 8,
+                "selected": true,
+                "name": "Toni Kroos"
+            },
+            {
+                "number": 14,
+                "selected": true,
+                "name": "Casemiro"
+            },
+            {
+                "number": 15,
+                "selected": true,
+                "name": "Fede Velverde"
+            }
+        ],
+        "defenders": [
+            {
+                "number": 6,
+                "selected": false,
+                "name": "Nacho"
+            },
+            {
+                "number": 2,
+                "selected": true,
+                "name": "Dani Carvajal"
+            },
+            {
+                "number": 3,
+                "selected": false,
+                "name": "E Militao"
+            },
+            {
+                "number": 5,
+                "selected": true,
+                "name": "Rafael Varane"
+            },
+            {
+                "number": 4,
+                "selected": true,
+                "name": "Sergio Ramos"
+            },
+            {
+                "number": 23,
+                "selected": false,
+                "name": "Mendy"
+            },
+            {
+                "number": 12,
+                "selected": true,
+                "name": "Marcelo"
+            }
+        ],
+        "goalkeepers": [
+            {
+                "number": 1,
+                "selected": false,
+                "name": "Areola"
+            },
+            {
+                "number": 13,
+                "selected": true,
+                "name": "Courtois"
+            }
+        ]
+    },
+    "formation": [
+        4,
+        4,
+        2
+    ]
+}
