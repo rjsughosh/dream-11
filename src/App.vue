@@ -81,6 +81,9 @@
                   <!-- <b-button class="form-btn" type="reset" variant="danger">Reset</b-button> -->
                 </b-form-group>
               </div>
+              <div v-if="nonUniqueError" class="form-err">
+                <img src="./assets/error.svg" /> Please choose a unique kit number
+              </div>
             </b-form>
           </div>
         </div>
@@ -161,24 +164,58 @@
         </div>
       </div>
       <div class="players-lineup">
+        <!-- <div class="club-name" v-if=" teamSelected == 'realMadrid'">Real Madrid F.C</div>
+        <div class="club-name" v-if=" teamSelected == 'barca'">FC Barcelona</div>-->
         <div class="forwards">
           <div v-bind:key="player.number" v-for="player in fwds">
-            <div class="each-player-box" v-if="player.selected">{{player.number}}</div>
+            <div
+              :title="player.name"
+              class="each-player-box"
+              v-bind:class="{'barca':teamSelected == 'barca','madrid':teamSelected == 'realMadrid'}"
+              v-if="player.selected"
+            >
+              <div class="player-kit-number">{{player.number}}</div>
+              <!-- <div class="player-kit-name">{{player.name}}</div> -->
+            </div>
           </div>
         </div>
         <div class="mid">
           <div v-bind:key="player.number" v-for="player in mids">
-            <div class="each-player-box" v-if="player.selected">{{player.number}}</div>
+            <div
+              :title="player.name"
+              class="each-player-box"
+              v-bind:class="{'barca':teamSelected == 'barca','madrid':teamSelected == 'realMadrid'}"
+              v-if="player.selected"
+            >
+              <div class="player-kit-number">{{player.number}}</div>
+              <!-- <div class="player-kit-name">{{player.name}}</div> -->
+            </div>
           </div>
         </div>
         <div class="defence">
           <div v-bind:key="player.number" v-for="player in defs">
-            <div class="each-player-box" v-if="player.selected">{{player.number}}</div>
+            <div
+              :title="player.name"
+              class="each-player-box"
+              v-bind:class="{'barca':teamSelected == 'barca','madrid':teamSelected == 'realMadrid'}"
+              v-if="player.selected"
+            >
+              <div class="player-kit-number">{{player.number}}</div>
+              <!-- <div class="player-kit-name">{{player.name}}</div> -->
+            </div>
           </div>
         </div>
         <div class="gk">
           <div v-bind:key="player.number" v-for="player in gks">
-            <div class="each-player-box" v-if="player.selected">{{player.number}}</div>
+            <div
+              :title="player.name"
+              class="each-player-box"
+              v-bind:class="{'barca':teamSelected == 'barca','madrid':teamSelected == 'realMadrid'}"
+              v-if="player.selected"
+            >
+              <div class="player-kit-number">{{player.number}}</div>
+              <!-- <div class="player-kit-name">{{player.name}}</div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -190,6 +227,7 @@
 import Header from "./components/Header";
 import barca from "./barcelona.json";
 import realMadrid from "./real madrid.json";
+// import html2canvas from "html2canvas";
 // import axios from "axios";
 export default {
   name: "App",
@@ -227,11 +265,12 @@ export default {
         { value: [5, 3, 2], text: "5-3-2" }
       ],
       formation: [],
-      teamSelected: "",
+      teamSelected: "barca",
       teamOptions: [
         { value: "barca", text: "FC Barcelona" },
         { value: "realMadrid", text: "Real Madrid" }
-      ]
+      ],
+      nonUniqueError: false
     };
   },
   computed: {
@@ -295,10 +334,9 @@ export default {
         let nums = this.team[key].map(x => x.number);
         allNumbers = [...allNumbers, ...nums];
       }
-      debugger;
       let bool = allNumbers.indexOf(Number.parseInt(this.form.number));
       if (bool !== -1) {
-        console.log("cant add");
+        this.nonUniqueError = true;
         return;
       }
       this.team[this.form.position].unshift({
@@ -307,6 +345,8 @@ export default {
         selected: false,
         position: "forward"
       });
+      this.nonUniqueError = false;
+      this.onReset(evt);
     },
 
     onReset(evt) {
@@ -441,22 +481,39 @@ label {
   /* min-height: 25%; */
 }
 
-.forwards .each-player-box,
-.mid .each-player-box,
-.defence .each-player-box,
-.gk .each-player-box {
+.each-player-box {
   width: 100px;
   height: 100px;
-
-  color: white;
   font-size: 2.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("./assets/blue.png");
   background-size: cover; /* <------ */
   background-repeat: no-repeat;
   background-position: center center;
+  background-image: url("./assets/blue.png");
+  color: white;
+  cursor: pointer;
+}
+
+.each-player-box:hover {
+  transform: scale(1.1);
+  transition: 0.3s all;
+}
+
+.madrid {
+  background-image: url("./assets/white.png");
+  color: #2e519f;
+}
+
+.barca {
+  background-image: url("./assets/blue.png");
+  color: white;
+}
+
+.player-kit-name {
+  font-size: 1rem;
 }
 
 .close-button {
@@ -545,6 +602,17 @@ label {
   justify-content: center;
   /* border-radius: 50%; */
 }
+
+.form-err {
+  color: #dc3545;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+.form-err img {
+  width: 1rem;
+  margin: 0 0.5rem 0 0;
+}
 .clear-btn:focus {
   outline: none;
 }
@@ -572,6 +640,13 @@ label {
 
 .each-section-left-header {
   margin: 0.5rem 0;
+}
+
+.club-name {
+  text-align: center;
+  /* font-weight: bold; */
+  color: #fff;
+  font-size: 2rem;
 }
 
 @media only screen and (max-width: 760px) {
