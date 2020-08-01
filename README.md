@@ -1,14 +1,11 @@
-Live Demo: https://dream11.netlify.app/
+## Dream11
+
+**Live Demo**: https://dream11.netlify.app/
 
 Create your own starting XI for El-classico
 A simple webapp created in Vue.js
 
-
-
-
-
-
-
+![Preview](preview.png)
 
 
 ## Project setup
